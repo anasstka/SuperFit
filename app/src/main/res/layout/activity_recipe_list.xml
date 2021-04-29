@@ -43,7 +43,8 @@
 
     </LinearLayout>
 
-    <EditText
+
+    <SearchView
         android:id="@+id/et_search"
         android:layout_width="match_parent"
         android:layout_height="36dp"
@@ -54,11 +55,15 @@
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         android:background="@drawable/block_white_search"
-        android:fontFamily="@font/montserrat_regular"
-        android:paddingLeft="16dp"
         android:ems="10"
+        android:fontFamily="@font/montserrat_regular"
         android:hint="Search..."
+        android:iconifiedByDefault="false"
+        app:iconifiedByDefault="false"
+        app:defaultQueryHint="Search..."
+        style="@style/SearchViewMy"
         android:inputType="textPersonName"
+        android:queryHint="Search..."
         android:textColorHint="#666" />
 
     <RelativeLayout
@@ -72,9 +77,11 @@
         android:layout_marginRight="16dp">
 
         <LinearLayout
+            android:id="@+id/diet_balanced"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/block_diet"
+            android:onClick="changeDiet"
             android:orientation="horizontal">
 
             <TextView
@@ -95,11 +102,13 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/diet_high_fiber"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="false"
             android:layout_centerHorizontal="true"
             android:background="@drawable/block_diet"
+            android:onClick="changeDiet"
             android:orientation="horizontal">
 
             <TextView
@@ -120,10 +129,12 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/diet_high_protein"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:background="@drawable/block_diet"
+            android:onClick="changeDiet"
             android:orientation="horizontal">
 
             <TextView

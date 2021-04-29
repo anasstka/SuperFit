@@ -2,9 +2,14 @@ package com.example.superfit;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.SearchView;
+import android.widget.TextView;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -33,6 +38,7 @@ public class RecipeListActivity extends AppCompatActivity {
     private ListView lv_recipes;
     private ArrayList<Recipe> recipeArrayList;
     private AdapterRecipe adapterRecipe;
+    private SearchView searchView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +47,8 @@ public class RecipeListActivity extends AppCompatActivity {
 
         lv_recipes = findViewById(R.id.lv_recipes);
         recipeArrayList = new ArrayList<>();
+
+        searchView = findViewById(R.id.et_search);
 
         System.out.println("!");
 
@@ -136,6 +144,46 @@ public class RecipeListActivity extends AppCompatActivity {
             e.printStackTrace();
         } catch (ParseException e) {
             e.printStackTrace();
+        }
+    }
+
+    public void changeDiet(View v) {
+        LinearLayout diet_balanced = findViewById(R.id.diet_balanced);
+        TextView txt_balanced = findViewById(R.id.btn_balanced);
+        LinearLayout diet_high_fiber = findViewById(R.id.diet_high_fiber);
+        TextView txt_high_fiber = findViewById(R.id.btn_high_fiber);
+        LinearLayout diet_high_protein = findViewById(R.id.diet_high_protein);
+        TextView txt_high_protein = findViewById(R.id.btn_high_protein);
+
+        switch (v.getId()) {
+            case R.id.diet_balanced:
+                diet_balanced.setBackgroundResource(R.drawable.block_diet_pressed);
+                txt_balanced.setTextColor(Color.parseColor("#B461F5"));
+
+                diet_high_fiber.setBackgroundResource(R.drawable.block_diet);
+                txt_high_fiber.setTextColor(Color.parseColor("#FFFFFF"));
+                diet_high_protein.setBackgroundResource(R.drawable.block_diet);
+                txt_high_protein.setTextColor(Color.parseColor("#FFFFFF"));
+                break;
+            case R.id.diet_high_fiber:
+                diet_balanced.setBackgroundResource(R.drawable.block_diet);
+                txt_balanced.setTextColor(Color.parseColor("#FFFFFF"));
+
+                diet_high_fiber.setBackgroundResource(R.drawable.block_diet_pressed);
+                txt_high_fiber.setTextColor(Color.parseColor("#B461F5"));
+
+                diet_high_protein.setBackgroundResource(R.drawable.block_diet);
+                txt_high_protein.setTextColor(Color.parseColor("#FFFFFF"));
+                break;
+            case R.id.diet_high_protein:
+                diet_balanced.setBackgroundResource(R.drawable.block_diet);
+                txt_balanced.setTextColor(Color.parseColor("#FFFFFF"));
+                diet_high_fiber.setBackgroundResource(R.drawable.block_diet);
+                txt_high_fiber.setTextColor(Color.parseColor("#FFFFFF"));
+
+                diet_high_protein.setBackgroundResource(R.drawable.block_diet_pressed);
+                txt_high_protein.setTextColor(Color.parseColor("#B461F5"));
+                break;
         }
     }
 }
