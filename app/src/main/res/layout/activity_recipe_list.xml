@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RecipeListActivity">
+
+    <ImageView
+        android:id="@+id/curtain"
+        android:layout_width="match_parent"
+        android:layout_height="169dp"
+        app:srcCompat="@drawable/purple_recipes_list"
+        tools:layout_editor_absoluteX="170dp"
+        tools:layout_editor_absoluteY="216dp" />
+
+    <LinearLayout
+        android:id="@+id/recipes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:scaleType="fitXY"
+            android:tint="#fff"
+            app:srcCompat="@drawable/abc_vector_test" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat_bold"
+            android:text="Recipes"
+            android:textColor="#fff"
+            android:textSize="24dp" />
+
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/et_search"
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="77dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:background="@drawable/block_white_search"
+        android:fontFamily="@font/montserrat_regular"
+        android:paddingLeft="16dp"
+        android:ems="10"
+        android:hint="Search..."
+        android:inputType="textPersonName"
+        android:textColorHint="#666" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/et_search"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/block_diet"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/btn_balanced"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:layout_marginLeft="6dp"
+                android:layout_marginTop="4.5dp"
+                android:layout_marginEnd="6dp"
+                android:layout_marginRight="6dp"
+                android:layout_marginBottom="4.5dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/montserrat_regular"
+                android:text="Balanced"
+                android:textColor="#fff"
+                android:textSize="12dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="false"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/block_diet"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/btn_high_fiber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:layout_marginLeft="6dp"
+                android:layout_marginTop="4.5dp"
+                android:layout_marginEnd="6dp"
+                android:layout_marginRight="6dp"
+                android:layout_marginBottom="4.5dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/montserrat_regular"
+                android:text="High-Fiber"
+                android:textColor="#fff"
+                android:textSize="12dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/block_diet"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/btn_high_protein"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:layout_marginLeft="6dp"
+                android:layout_marginTop="4.5dp"
+                android:layout_marginEnd="6dp"
+                android:layout_marginRight="6dp"
+                android:layout_marginBottom="4.5dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/montserrat_regular"
+                android:text="High_Protein"
+                android:textColor="#fff"
+                android:textSize="12dp" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <ListView
+        android:id="@+id/lv_recipes"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/curtain" />
+
+</RelativeLayout>

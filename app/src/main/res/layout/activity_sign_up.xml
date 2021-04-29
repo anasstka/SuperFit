@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_start"
+    tools:context=".ActivitySignUp">
+
+    <TextView
+        android:id="@+id/tv_SF"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="44dp"
+        android:fontFamily="@font/montserrat_bold"
+        android:text="SuperFit"
+        android:textColor="#fff"
+        android:textSize="64dp"
+        tools:layout_editor_absoluteX="123dp"
+        tools:layout_editor_absoluteY="165dp" />
+
+    <EditText
+        android:id="@+id/et_name"
+        android:layout_width="256dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="242dp"
+        android:backgroundTint="#FFF"
+        android:ems="10"
+        android:hint="UserName"
+        android:inputType="textPersonName"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#FFFFFF" />
+
+    <EditText
+        android:id="@+id/et_email"
+        android:layout_width="256dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/et_name"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="#FFF"
+        android:ems="10"
+        android:hint="Email"
+        android:inputType="textEmailAddress"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#FFFFFF" />
+
+    <EditText
+        android:id="@+id/et_password"
+        android:layout_width="256dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/et_email"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="#FFF"
+        android:ems="10"
+        android:hint="Code"
+        android:maxLength="4"
+        android:digits="123456789"
+        android:inputType="numberPassword"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#FFFFFF" />
+
+    <EditText
+        android:id="@+id/et_repeat_password"
+        android:layout_width="256dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/et_password"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="#FFF"
+        android:ems="10"
+        android:hint="RepeatCode"
+        android:digits="123456789"
+        android:maxLength="4"
+        android:inputType="numberPassword"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#FFFFFF" />
+
+    <LinearLayout
+        android:id="@+id/btn_sign_up"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/et_repeat_password"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat_bold"
+            android:text="Sign Up"
+            android:textColor="#FFFFFF"
+            android:textSize="24dp" />
+
+        <ImageView
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:rotation="180"
+            android:scaleType="fitXY"
+            app:srcCompat="@drawable/abc_vector_test" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/btn_sign_in"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="26dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:scaleType="fitXY"
+            app:srcCompat="@drawable/abc_vector_test" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat_bold"
+            android:text="Sign In"
+            android:textColor="#FFFFFF"
+            android:textSize="24dp" />
+
+    </LinearLayout>
+
+</RelativeLayout>
