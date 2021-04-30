@@ -49,6 +49,17 @@
         android:textColor="#000"
         android:textSize="14dp" />
 
+    <ImageView
+        android:id="@+id/btn_back_on_scroll"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="18dp"
+        android:layout_marginLeft="18dp"
+        android:layout_marginTop="40dp"
+        android:scaleType="fitXY"
+        android:tint="#fff"
+        app:srcCompat="@drawable/abc_vector_test" />
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -122,7 +133,7 @@
             android:fontFamily="@font/montserrat_regular"
             android:textColor="#666666" />
         <TextView
-            android:id="@+id/tv_carbs_on_"
+            android:id="@+id/tv_carbs_on_scroll"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -142,10 +153,10 @@
     </LinearLayout>
 
     <ListView
+        android:id="@+id/lv_ingredients"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/ing"
-        android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp" />
+        android:divider="@null" />
 
 </RelativeLayout>

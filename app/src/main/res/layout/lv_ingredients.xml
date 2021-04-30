@@ -7,6 +7,7 @@
         android:id="@+id/imageView2"
         android:layout_width="25dp"
         android:layout_height="25dp"
+        android:layout_centerVertical="true"
         android:layout_marginStart="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginBottom="9dp"
@@ -16,10 +17,11 @@
         android:id="@+id/tv_ingredient"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
         android:layout_marginStart="53dp"
         android:layout_marginLeft="53dp"
         android:layout_marginBottom="9dp"
-        android:text="1/2 cup olive oil"
         android:fontFamily="@font/montserrat_regular"
+        android:text="1/2 cup olive oil"
         android:textColor="#666666" />
 </RelativeLayout>

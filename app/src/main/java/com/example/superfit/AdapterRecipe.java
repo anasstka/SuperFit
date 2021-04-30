@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Filter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -23,15 +24,18 @@ import java.util.ArrayList;
 
 import static android.os.FileUtils.copy;
 
-public class AdapterRecipe extends BaseAdapter{
+public class AdapterRecipe extends BaseAdapter {
 
     Context ctx;
     LayoutInflater inflater;
     ArrayList<Recipe> recipes;
 
+    ArrayList<Recipe> listFull;
+
     public AdapterRecipe(Context context, ArrayList<Recipe> recipes) {
         this.ctx = context;
         this.recipes = recipes;
+        this.listFull=recipes;
         inflater = (LayoutInflater) ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
@@ -68,4 +72,36 @@ public class AdapterRecipe extends BaseAdapter{
 
         return view;
     }
+
+//    public Filter getFilter() {
+//        return exampleFilter;
+//    }
+//
+//    private Filter exampleFilter = new Filter() {
+//        @Override
+//        protected FilterResults performFiltering(CharSequence constraint) {
+//           ArrayList<Recipe> filterList = new ArrayList<>();
+//           if(ctx==null|| constraint.length()==0){
+//               filterList.addAll(listFull);
+//           }
+//           else {
+//               String filterPattern = constraint.toString().toLowerCase().trim();
+//               for (Recipe item: listFull){
+//                   if(item.getName().toLowerCase().contains(filterPattern)){
+//                       filterList.add(item);
+//                   }
+//               }
+//           }
+//           FilterResults results = new FilterResults();
+//           results.values=filterList;
+//            return results;
+//        }
+//
+//        @Override
+//        protected void publishResults(CharSequence constraint, FilterResults results) {
+//            recipes.clear();
+//            recipes.addAll((ArrayList<Recipe>)results.values);
+//            notifyDataSetChanged();
+//        }
+//    };
 }

@@ -61,7 +61,6 @@
         android:iconifiedByDefault="false"
         app:iconifiedByDefault="false"
         app:defaultQueryHint="Search..."
-        style="@style/SearchViewMy"
         android:inputType="textPersonName"
         android:queryHint="Search..."
         android:textColorHint="#666" />
@@ -80,7 +79,7 @@
             android:id="@+id/diet_balanced"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/block_diet"
+            android:background="@drawable/block_diet_pressed"
             android:onClick="changeDiet"
             android:orientation="horizontal">
 
@@ -97,7 +96,7 @@
                 android:layout_weight="1"
                 android:fontFamily="@font/montserrat_regular"
                 android:text="Balanced"
-                android:textColor="#fff"
+                android:textColor="#B461F5"
                 android:textSize="12dp" />
         </LinearLayout>
 
@@ -159,6 +158,24 @@
         android:id="@+id/lv_recipes"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/curtain" />
+        android:layout_below="@id/curtain" >
+
+    </ListView>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/curtain"
+        android:orientation="horizontal">
+
+        <com.github.ybq.android.spinkit.SpinKitView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/spin_kit"
+            style="@style/SpinKitView.Circle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            app:SpinKit_Color="#B461F5" />
+    </RelativeLayout>
 
 </RelativeLayout>

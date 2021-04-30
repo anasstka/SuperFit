@@ -2,14 +2,21 @@ package com.example.superfit;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.SearchView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.github.ybq.android.spinkit.style.Circle;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -32,7 +39,7 @@ public class RecipeListActivity extends AppCompatActivity {
     private static final String APP_ID = "b0e23358";
     private static final String APP_KEY = "33972e22ce0dd8f06384d71f8bd3a3f2";
 
-    private static String DIET = "high-protein";
+    private static String DIET = "balanced";
     private static String SEARCH = "meat";
 
     private ListView lv_recipes;
@@ -40,17 +47,65 @@ public class RecipeListActivity extends AppCompatActivity {
     private AdapterRecipe adapterRecipe;
     private SearchView searchView;
 
+    ProgressBar progressBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_list);
 
+        progressBar = (ProgressBar) findViewById(R.id.spin_kit);
+
+        searchView = findViewById(R.id.et_search);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                recipeArrayList.clear();
+                adapterRecipe.notifyDataSetChanged();
+                SEARCH = query;
+                Async();
+//                adapterRecipe.getFilter().filter(query);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                recipeArrayList.clear();
+                adapterRecipe.notifyDataSetChanged();
+//                Toast.makeText(RecipeListActivity.this, "Нет рецептов в категории: " + DIET, Toast.LENGTH_LONG).show();
+                SEARCH = newText;
+                Async();
+                return false;
+            }
+        });
+
+//        Circle wave = new Circle();
+//        progressBar.setIndeterminateDrawable(wave);
+//        progressBar.setVisibility(View.VISIBLE);
+
         lv_recipes = findViewById(R.id.lv_recipes);
+        lv_recipes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(getApplicationContext(), ActivityRecipeScroll.class);
+                intent.putExtra("recipe", recipeArrayList.get(position));
+                startActivity(intent);
+            }
+        });
+
         recipeArrayList = new ArrayList<>();
 
         searchView = findViewById(R.id.et_search);
 
         System.out.println("!");
+        Async();
+
+    }
+
+    private void Async(){
+        Circle wave = new Circle();
+        progressBar.setIndeterminateDrawable(wave);
+        progressBar.setVisibility(View.VISIBLE);
 
         AsyncTask.execute(new Runnable() {
             @Override
@@ -79,9 +134,25 @@ public class RecipeListActivity extends AppCompatActivity {
                             public void run() {
                                 adapterRecipe = new AdapterRecipe(RecipeListActivity.this, recipeArrayList);
                                 lv_recipes.setAdapter(adapterRecipe);
+                                progressBar.setVisibility(View.GONE);
                             }
                         });
                     }
+//                    else {
+//                        runOnUiThread(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                adapterRecipe = new AdapterRecipe(RecipeListActivity.this, recipeArrayList);
+//                                lv_recipes.setAdapter(adapterRecipe);
+//                            }
+//                        });
+//                        System.out.println("else");
+//                        TextView tv_error = findViewById(R.id.tv_error);
+//                        tv_error.setVisibility(View.VISIBLE);
+//                        tv_error.setText("Нет рецептов в категории: " + DIET);
+////                        Toast.makeText(getApplicationContext(), "Добро пожаловать", Toast.LENGTH_SHORT).show();
+////                        Toast.makeText(RecipeListActivity.this, "Нет рецептов в категории: " + DIET, Toast.LENGTH_LONG).show();
+//                    }
 
                 } catch (MalformedURLException e) {
                     e.printStackTrace();
@@ -118,11 +189,12 @@ public class RecipeListActivity extends AppCompatActivity {
                     dietLabels.add(jsonObject1_dietLabels.get(i).toString());
                 }
 
-                ArrayList<String> ingredient = new ArrayList<>();
+                ArrayList<Ingredient> ingredient = new ArrayList<>();
                 JSONArray ingredientLines = (JSONArray) recipe.get("ingredientLines");
                 for (int i = 0; i < ingredientLines.size(); i++) {
 //                    System.out.println(ingredientLines.get(i).toString());
-                    ingredient.add(ingredientLines.get(i).toString());
+                    Ingredient ing = new Ingredient(ingredientLines.get(i).toString());
+                    ingredient.add(ing);
                 }
 
                 JSONObject totalNutrients = (JSONObject) recipe.get("totalNutrients");
@@ -139,6 +211,7 @@ public class RecipeListActivity extends AppCompatActivity {
 
                 Recipe curr_recipe = new Recipe(name, image, dietLabels, kcal, protein, fat, carbs, ingredient);
                 recipeArrayList.add(curr_recipe);
+
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -148,6 +221,13 @@ public class RecipeListActivity extends AppCompatActivity {
     }
 
     public void changeDiet(View v) {
+        recipeArrayList.clear();
+        adapterRecipe.notifyDataSetChanged();
+
+//        Circle wave = new Circle();
+//        progressBar.setIndeterminateDrawable(wave);
+//        progressBar.setVisibility(View.VISIBLE);
+
         LinearLayout diet_balanced = findViewById(R.id.diet_balanced);
         TextView txt_balanced = findViewById(R.id.btn_balanced);
         LinearLayout diet_high_fiber = findViewById(R.id.diet_high_fiber);
@@ -157,6 +237,8 @@ public class RecipeListActivity extends AppCompatActivity {
 
         switch (v.getId()) {
             case R.id.diet_balanced:
+                DIET = "balanced";
+
                 diet_balanced.setBackgroundResource(R.drawable.block_diet_pressed);
                 txt_balanced.setTextColor(Color.parseColor("#B461F5"));
 
@@ -166,6 +248,7 @@ public class RecipeListActivity extends AppCompatActivity {
                 txt_high_protein.setTextColor(Color.parseColor("#FFFFFF"));
                 break;
             case R.id.diet_high_fiber:
+                DIET="high-fiber";
                 diet_balanced.setBackgroundResource(R.drawable.block_diet);
                 txt_balanced.setTextColor(Color.parseColor("#FFFFFF"));
 
@@ -174,8 +257,11 @@ public class RecipeListActivity extends AppCompatActivity {
 
                 diet_high_protein.setBackgroundResource(R.drawable.block_diet);
                 txt_high_protein.setTextColor(Color.parseColor("#FFFFFF"));
+
+                Toast.makeText(RecipeListActivity.this, "Нет рецептов в категории: " + DIET, Toast.LENGTH_LONG).show();
                 break;
             case R.id.diet_high_protein:
+                DIET="high-protein";
                 diet_balanced.setBackgroundResource(R.drawable.block_diet);
                 txt_balanced.setTextColor(Color.parseColor("#FFFFFF"));
                 diet_high_fiber.setBackgroundResource(R.drawable.block_diet);
@@ -185,5 +271,6 @@ public class RecipeListActivity extends AppCompatActivity {
                 txt_high_protein.setTextColor(Color.parseColor("#B461F5"));
                 break;
         }
+        Async();
     }
 }

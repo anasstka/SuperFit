@@ -1,9 +1,10 @@
 package com.example.superfit;
 
+import java.io.Serializable;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class Recipe {
+public class Recipe implements Serializable {
 
     private String name;
     private String image;
@@ -12,9 +13,9 @@ public class Recipe {
     private int protein;
     private int fat;
     private int carbs;
-    private ArrayList<String> ingredients;
+    private ArrayList<Ingredient> ingredients;
 
-    public Recipe(String name, String image, ArrayList<String> dietLabels, int kcal, int protein, int fat, int carbs, ArrayList<String> ingredients) {
+    public Recipe(String name, String image, ArrayList<String> dietLabels, int kcal, int protein, int fat, int carbs, ArrayList<Ingredient> ingredients) {
         this.name = name;
         this.image = image;
         this.dietLabels = dietLabels;
@@ -73,11 +74,11 @@ public class Recipe {
         this.image = image;
     }
 
-    public ArrayList<String> getIngredients() {
+    public ArrayList<Ingredient> getIngredients() {
         return ingredients;
     }
 
-    public void setIngredients(ArrayList<String> ingredients) {
+    public void setIngredients(ArrayList<Ingredient> ingredients) {
         this.ingredients = ingredients;
     }
 
