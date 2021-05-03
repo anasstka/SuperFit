@@ -17,6 +17,7 @@ public class ActivityRecipeScroll extends AppCompatActivity {
 
     ListView lv_ingredients;
     ImageView iv_image;
+    TextView tv_name_on_scroll;
     TextView tv_kcal;
     TextView tv_protein;
     TextView tv_fat;
@@ -29,6 +30,7 @@ public class ActivityRecipeScroll extends AppCompatActivity {
 
         lv_ingredients = findViewById(R.id.lv_ingredients);
         iv_image = findViewById(R.id.im_recipe);
+        tv_name_on_scroll = findViewById(R.id.tv_name_on_scroll);
         tv_kcal = findViewById(R.id.tv_kcal_on_scroll);
         tv_protein = findViewById(R.id.tv_protein_on_scroll);
         tv_fat = findViewById(R.id.tv_fat_on_scroll);
@@ -50,6 +52,9 @@ public class ActivityRecipeScroll extends AppCompatActivity {
 
             String image = recipe.getImage();
             Picasso.get().load(recipe.getImage()).into(iv_image);
+
+            String name = recipe.getName();
+            tv_name_on_scroll.setText(String.valueOf(name));
 
             int kcal = recipe.getKcal();
             tv_kcal.setText(String.valueOf(kcal));

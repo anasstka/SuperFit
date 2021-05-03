@@ -21,7 +21,7 @@
         app:srcCompat="@drawable/white_block_on_main" />
 
     <TextView
-        android:id="@+id/textView6"
+        android:id="@+id/tv_name_on_scroll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
