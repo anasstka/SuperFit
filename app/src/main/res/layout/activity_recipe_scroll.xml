@@ -31,6 +31,7 @@
         android:layout_marginEnd="20dp"
         android:layout_marginRight="20dp"
         android:fontFamily="@font/montserrat_regular"
+        android:maxLines="3"
         android:text="Chicken Vesuvio"
         android:textColor="#000"
         android:textSize="24dp" />
@@ -39,9 +40,10 @@
         android:id="@+id/ing"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@id/leaner_info"
         android:layout_marginStart="20dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="272dp"
+        android:layout_marginTop="16dp"
         android:layout_marginBottom="17dp"
         android:layout_weight="1"
         android:fontFamily="@font/montserrat_bold"
@@ -61,11 +63,13 @@
         app:srcCompat="@drawable/abc_vector_test" />
 
     <LinearLayout
+        android:id="@+id/leaner_kcal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@id/tv_name_on_scroll"
         android:layout_marginStart="20dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="213dp"
+        android:layout_marginTop="16dp"
         android:orientation="horizontal">
 
         <TextView
@@ -90,11 +94,13 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/leaner_info"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@id/leaner_kcal"
         android:layout_marginStart="20dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="241dp"
+        android:layout_marginTop="11dp"
         android:layout_weight="1"
         android:orientation="horizontal">
 
@@ -112,33 +118,34 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:fontFamily="@font/montserrat_regular"
             android:text="g protein • "
-            android:textColor="#666666"
-            android:fontFamily="@font/montserrat_regular"/>
+            android:textColor="#666666" />
 
         <TextView
             android:id="@+id/tv_fat_on_scroll"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="325 "
             android:fontFamily="@font/montserrat_regular"
+            android:text="325 "
             android:textColor="#666666" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="g fat • "
             android:fontFamily="@font/montserrat_regular"
+            android:text="g fat • "
             android:textColor="#666666" />
+
         <TextView
             android:id="@+id/tv_carbs_on_scroll"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="746 "
             android:fontFamily="@font/montserrat_regular"
+            android:text="746 "
             android:textColor="#666666" />
 
         <TextView
@@ -146,8 +153,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="g carbs"
             android:fontFamily="@font/montserrat_regular"
+            android:text="g carbs"
             android:textColor="#666666" />
 
     </LinearLayout>

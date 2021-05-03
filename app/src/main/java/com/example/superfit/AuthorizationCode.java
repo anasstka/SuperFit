@@ -26,6 +26,8 @@ public class AuthorizationCode extends AppCompatActivity {
 
     private String db_username = null;
     private String db_userEmail = null;
+    private double dv_userWeight = 0.0;
+    private double db_userHeight = 0.0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +49,9 @@ public class AuthorizationCode extends AppCompatActivity {
                 Contract.UserEntry._ID,
                 Contract.UserEntry.COLUMN_NAME,
                 Contract.UserEntry.COLUMN_EMAIL,
-                Contract.UserEntry.COLUMN_CODE
+                Contract.UserEntry.COLUMN_CODE,
+                Contract.UserEntry.COLUMN_WEIGHT,
+                Contract.UserEntry.COLUMN_HEIGHT
         };
 
         Cursor cursor = db.query(
@@ -64,17 +68,24 @@ public class AuthorizationCode extends AppCompatActivity {
         int nameColumnIndex = cursor.getColumnIndex(Contract.UserEntry.COLUMN_NAME);
         int emailColumnIndex = cursor.getColumnIndex(Contract.UserEntry.COLUMN_EMAIL);
         int codeColumnIndex = cursor.getColumnIndex(Contract.UserEntry.COLUMN_CODE);
+        int weightColumnIndex = cursor.getColumnIndex(Contract.UserEntry.COLUMN_WEIGHT);
+        int heightColumnIndex = cursor.getColumnIndex(Contract.UserEntry.COLUMN_HEIGHT);
 
         while (cursor.moveToNext()) {
             // Используем индекс для получения строки или числа
             int currentID = cursor.getInt(idColumnIndex);
             String currentName = cursor.getString(nameColumnIndex);
             String currentEmail = cursor.getString(emailColumnIndex);
+            double currentWeight = cursor.getDouble(weightColumnIndex);
+            double currentHeight = cursor.getDouble(heightColumnIndex);
             int currentCode = cursor.getInt(codeColumnIndex);
 
             if (username.equals(currentName)) {
                 db_username = currentName;
                 db_userEmail = currentEmail;
+                dv_userWeight = currentWeight;
+                db_userHeight = currentHeight;
+
                 code_correct = String.valueOf(currentCode);
 //                Toast.makeText(getApplicationContext(), "" + code_correct, Toast.LENGTH_SHORT).show();
             }
@@ -126,6 +137,8 @@ public class AuthorizationCode extends AppCompatActivity {
             if(code_correct.equals(code_user)){
                 editor.putString(PREFERENCES.APP_PREFERENCES_NAME, String.valueOf(db_username));
                 editor.putString(PREFERENCES.APP_PREFERENCES_EMAIL, String.valueOf(db_userEmail));
+                editor.putString(PREFERENCES.APP_PREFERENCES_WEIGHT, String.valueOf(dv_userWeight));
+                editor.putString(PREFERENCES.APP_PREFERENCES_HEIGHT, String.valueOf(db_userHeight));
                 editor.apply();
 
                 Toast.makeText(getApplicationContext(), "Добро пожаловать", Toast.LENGTH_SHORT).show();

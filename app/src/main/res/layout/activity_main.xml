@@ -123,7 +123,7 @@
                         android:src="@drawable/img_kg" />
 
                     <TextView
-                        android:id="@+id/textView4"
+                        android:id="@+id/tv_weight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
@@ -134,17 +134,6 @@
                         android:textColor="#fff"
                         android:textSize="14dp" />
 
-                    <TextView
-                        android:id="@+id/textView5"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginStart="3dp"
-                        android:layout_marginLeft="3dp"
-                        android:fontFamily="@font/montserrat_bold"
-                        android:text="kg"
-                        android:textColor="#fff"
-                        android:textSize="14dp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -158,13 +147,14 @@
                     android:orientation="horizontal">
 
                     <ImageView
-                        android:layout_width="22dp"
-                        android:layout_height="22dp"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
                         android:layout_gravity="center_vertical"
                         android:scaleType="fitXY"
                         android:src="@drawable/img_cm" />
 
                     <TextView
+                        android:id="@+id/tv_height"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
@@ -175,16 +165,6 @@
                         android:textColor="#fff"
                         android:textSize="14dp" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginStart="3dp"
-                        android:layout_marginLeft="3dp"
-                        android:fontFamily="@font/montserrat_bold"
-                        android:text="cm"
-                        android:textColor="#fff"
-                        android:textSize="14dp" />
                 </LinearLayout>
 
             </RelativeLayout>

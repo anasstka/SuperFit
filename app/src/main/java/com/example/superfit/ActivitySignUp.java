@@ -69,6 +69,8 @@ public class ActivitySignUp extends AppCompatActivity {
                     } else {
                         editor.putString(PREFERENCES.APP_PREFERENCES_NAME, String.valueOf(name));
                         editor.putString(PREFERENCES.APP_PREFERENCES_EMAIL, String.valueOf(email));
+                        editor.putString(PREFERENCES.APP_PREFERENCES_WEIGHT, String.valueOf(0));
+                        editor.putString(PREFERENCES.APP_PREFERENCES_HEIGHT, String.valueOf(0));
                         editor.apply();
 
                         Intent intent = new Intent(getApplicationContext(), MainActivity.class);

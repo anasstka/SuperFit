@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Parcelable;
 import android.view.View;
 import android.widget.AdapterView;
@@ -40,7 +41,7 @@ public class RecipeListActivity extends AppCompatActivity {
     private static final String APP_KEY = "33972e22ce0dd8f06384d71f8bd3a3f2";
 
     private static String DIET = "balanced";
-    private static String SEARCH = "meat";
+    private static String SEARCH = "";
 
     private ListView lv_recipes;
     private ArrayList<Recipe> recipeArrayList;
@@ -60,21 +61,30 @@ public class RecipeListActivity extends AppCompatActivity {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                recipeArrayList.clear();
-                adapterRecipe.notifyDataSetChanged();
-                SEARCH = query;
-                Async();
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        recipeArrayList.clear();
+                        adapterRecipe.notifyDataSetChanged();
+                        SEARCH = query;
+                        Async();
+                    }
+                }, 4000);
 //                adapterRecipe.getFilter().filter(query);
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                recipeArrayList.clear();
-                adapterRecipe.notifyDataSetChanged();
-//                Toast.makeText(RecipeListActivity.this, "Нет рецептов в категории: " + DIET, Toast.LENGTH_LONG).show();
-                SEARCH = newText;
-                Async();
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        recipeArrayList.clear();
+                        adapterRecipe.notifyDataSetChanged();
+                        SEARCH = newText;
+                        Async();
+                    }
+                }, 4000);
                 return false;
             }
         });
