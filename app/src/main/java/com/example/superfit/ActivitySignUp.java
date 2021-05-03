@@ -3,13 +3,12 @@ package com.example.superfit;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -17,9 +16,10 @@ import android.widget.Toast;
 import com.example.superfit.data.Contract;
 import com.example.superfit.data.DbHelper;
 
-import java.sql.SQLData;
-
 public class ActivitySignUp extends AppCompatActivity {
+
+    SharedPreferences mSettings;
+    SharedPreferences.Editor editor;
 
     EditText et_name;
     EditText et_email;
@@ -34,6 +34,9 @@ public class ActivitySignUp extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
+
+        mSettings = getSharedPreferences(PREFERENCES.APP_PREFERENCES, Context.MODE_PRIVATE);
+        editor = mSettings.edit();
 
         et_name = findViewById(R.id.et_name);
         et_email = findViewById(R.id.et_email);
@@ -60,15 +63,17 @@ public class ActivitySignUp extends AppCompatActivity {
 
                     long newRowId = db.insert(Contract.UserEntry.TABLE_NAME, null, values);
 
-//                    if (newRowId == -1) {
-//                        // Если ID  -1, значит произошла ошибка
-//                        Toast.makeText(getApplicationContext(), "Ошибка при заведении гостя", Toast.LENGTH_SHORT).show();
-//                    } else {
-//                        Toast.makeText(getApplicationContext(), "Гость заведён под номером: " + newRowId, Toast.LENGTH_SHORT).show();
-//                    }
+                    if (newRowId == -1) {
+                        // Если ID  -1, значит произошла ошибка
+                        Toast.makeText(getApplicationContext(), "Ошибка", Toast.LENGTH_SHORT).show();
+                    } else {
+                        editor.putString(PREFERENCES.APP_PREFERENCES_NAME, String.valueOf(name));
+                        editor.putString(PREFERENCES.APP_PREFERENCES_EMAIL, String.valueOf(email));
+                        editor.apply();
 
-                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                    startActivity(intent);
+                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                        startActivity(intent);
+                    }
                 }
             }
         });

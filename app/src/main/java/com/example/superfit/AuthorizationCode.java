@@ -2,14 +2,14 @@ package com.example.superfit;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,13 +18,22 @@ import com.example.superfit.data.DbHelper;
 
 public class AuthorizationCode extends AppCompatActivity {
 
+    SharedPreferences mSettings;
+    SharedPreferences.Editor editor;
+
     private String code_correct = "1111";
     private String code_user = "";
+
+    private String db_username = null;
+    private String db_userEmail = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_authorization_code);
+
+        mSettings = getSharedPreferences(PREFERENCES.APP_PREFERENCES, Context.MODE_PRIVATE);
+        editor = mSettings.edit();
 
         TextView tv_email = findViewById(R.id.tv_email);
         Bundle bundle = getIntent().getExtras();
@@ -37,6 +46,7 @@ public class AuthorizationCode extends AppCompatActivity {
         String [] list_column = {
                 Contract.UserEntry._ID,
                 Contract.UserEntry.COLUMN_NAME,
+                Contract.UserEntry.COLUMN_EMAIL,
                 Contract.UserEntry.COLUMN_CODE
         };
 
@@ -52,15 +62,19 @@ public class AuthorizationCode extends AppCompatActivity {
 
         int idColumnIndex = cursor.getColumnIndex(Contract.UserEntry._ID);
         int nameColumnIndex = cursor.getColumnIndex(Contract.UserEntry.COLUMN_NAME);
+        int emailColumnIndex = cursor.getColumnIndex(Contract.UserEntry.COLUMN_EMAIL);
         int codeColumnIndex = cursor.getColumnIndex(Contract.UserEntry.COLUMN_CODE);
 
         while (cursor.moveToNext()) {
             // Используем индекс для получения строки или числа
             int currentID = cursor.getInt(idColumnIndex);
             String currentName = cursor.getString(nameColumnIndex);
+            String currentEmail = cursor.getString(emailColumnIndex);
             int currentCode = cursor.getInt(codeColumnIndex);
 
             if (username.equals(currentName)) {
+                db_username = currentName;
+                db_userEmail = currentEmail;
                 code_correct = String.valueOf(currentCode);
 //                Toast.makeText(getApplicationContext(), "" + code_correct, Toast.LENGTH_SHORT).show();
             }
@@ -110,6 +124,10 @@ public class AuthorizationCode extends AppCompatActivity {
         System.out.println(code_user);
         if(code_user.length()==4){
             if(code_correct.equals(code_user)){
+                editor.putString(PREFERENCES.APP_PREFERENCES_NAME, String.valueOf(db_username));
+                editor.putString(PREFERENCES.APP_PREFERENCES_EMAIL, String.valueOf(db_userEmail));
+                editor.apply();
+
                 Toast.makeText(getApplicationContext(), "Добро пожаловать", Toast.LENGTH_SHORT).show();
                 Intent intent= new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent);
