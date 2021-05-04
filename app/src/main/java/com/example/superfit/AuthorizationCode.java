@@ -16,7 +16,33 @@ import android.widget.Toast;
 import com.example.superfit.data.Contract;
 import com.example.superfit.data.DbHelper;
 
+import java.util.Random;
+
 public class AuthorizationCode extends AppCompatActivity {
+
+    private ImageView[] iv_numbers;
+    private int[] imagesNumbers = {
+            R.drawable.number_1,
+            R.drawable.number_2,
+            R.drawable.number_3,
+            R.drawable.number_4,
+            R.drawable.number_5,
+            R.drawable.number_6,
+            R.drawable.number_7,
+            R.drawable.number_8,
+            R.drawable.number_9
+    };
+    private String[] valuesNumbers = {
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9"
+    };
 
     SharedPreferences mSettings;
     SharedPreferences.Editor editor;
@@ -34,6 +60,18 @@ public class AuthorizationCode extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_authorization_code);
 
+        iv_numbers = new ImageView[] {
+                findViewById(R.id.im_1),
+                findViewById(R.id.im_2),
+                findViewById(R.id.im_3),
+                findViewById(R.id.im_4),
+                findViewById(R.id.im_5),
+                findViewById(R.id.im_6),
+                findViewById(R.id.im_7),
+                findViewById(R.id.im_8),
+                findViewById(R.id.im_9)
+        };
+
         mSettings = getSharedPreferences(PREFERENCES.APP_PREFERENCES, Context.MODE_PRIVATE);
         editor = mSettings.edit();
 
@@ -41,7 +79,6 @@ public class AuthorizationCode extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         String username = bundle.getString("username").toString().trim();
         tv_email.setText(username);
-
 
         DbHelper dbHelper = new DbHelper(this);
         SQLiteDatabase db = dbHelper.getReadableDatabase();
@@ -102,34 +139,54 @@ public class AuthorizationCode extends AppCompatActivity {
         });
     }
 
+    // метод для переставления кнопок клавиатуры в случайном порядке
+    private void shuffleButtons() {
+        Random rnd = new Random();
+        for (int i = iv_numbers.length - 1; i >= 1; i--) {
+            int j = rnd.nextInt(i + 1);
+
+            int tmp = imagesNumbers[j];
+            imagesNumbers[j] = imagesNumbers[i];
+            imagesNumbers[i] = tmp;
+
+            String tmp2 = valuesNumbers[j];
+            valuesNumbers[j] = valuesNumbers[i];
+            valuesNumbers[i] = tmp2;
+        }
+
+        for (int i = 0; i < iv_numbers.length; i++) {
+            iv_numbers[i].setImageResource(imagesNumbers[i]);
+        }
+    }
+
     public void onClick(View v){
         switch (v.getId()){
             case R.id.im_1:
-                code_user+="1";
+                code_user+=valuesNumbers[0];
                 break;
             case R.id.im_2:
-                code_user+="2";
+                code_user+=valuesNumbers[1];
                 break;
             case R.id.im_3:
-                code_user+="3";
+                code_user+=valuesNumbers[2];
                 break;
             case R.id.im_4:
-                code_user+="4";
+                code_user+=valuesNumbers[3];
                 break;
             case R.id.im_5:
-                code_user+="5";
+                code_user+=valuesNumbers[4];
                 break;
             case R.id.im_6:
-                code_user+="6";
+                code_user+=valuesNumbers[5];
                 break;
             case R.id.im_7:
-                code_user+="7";
+                code_user+=valuesNumbers[6];
                 break;
             case R.id.im_8:
-                code_user+="8";
+                code_user+=valuesNumbers[7];
                 break;
             case R.id.im_9:
-                code_user+="9";
+                code_user+=valuesNumbers[8];
                 break;
         }
         System.out.println(code_user);
@@ -150,5 +207,7 @@ public class AuthorizationCode extends AppCompatActivity {
                 code_user="";
             }
         }
+
+        shuffleButtons();
     }
 }
