@@ -7,7 +7,6 @@ import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Parcelable;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
@@ -29,7 +28,6 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import javax.net.ssl.HttpsURLConnection;
@@ -45,7 +43,7 @@ public class RecipeListActivity extends AppCompatActivity {
 
     private ListView lv_recipes;
     private ArrayList<Recipe> recipeArrayList;
-    private AdapterRecipe adapterRecipe;
+    private RecipeAdapter recipeAdapter;
     private SearchView searchView;
 
     ProgressBar progressBar;
@@ -65,7 +63,7 @@ public class RecipeListActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         recipeArrayList.clear();
-                        adapterRecipe.notifyDataSetChanged();
+                        recipeAdapter.notifyDataSetChanged();
                         SEARCH = query;
                         Async();
                     }
@@ -80,7 +78,7 @@ public class RecipeListActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         recipeArrayList.clear();
-                        adapterRecipe.notifyDataSetChanged();
+                        recipeAdapter.notifyDataSetChanged();
                         SEARCH = newText;
                         Async();
                     }
@@ -97,7 +95,7 @@ public class RecipeListActivity extends AppCompatActivity {
         lv_recipes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(getApplicationContext(), ActivityRecipeScroll.class);
+                Intent intent = new Intent(getApplicationContext(), RecipeScreenActivity.class);
                 intent.putExtra("recipe", recipeArrayList.get(position));
                 startActivity(intent);
             }
@@ -142,8 +140,8 @@ public class RecipeListActivity extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                adapterRecipe = new AdapterRecipe(RecipeListActivity.this, recipeArrayList);
-                                lv_recipes.setAdapter(adapterRecipe);
+                                recipeAdapter = new RecipeAdapter(RecipeListActivity.this, recipeArrayList);
+                                lv_recipes.setAdapter(recipeAdapter);
                                 progressBar.setVisibility(View.GONE);
                             }
                         });
@@ -232,7 +230,7 @@ public class RecipeListActivity extends AppCompatActivity {
 
     public void changeDiet(View v) {
         recipeArrayList.clear();
-        adapterRecipe.notifyDataSetChanged();
+        recipeAdapter.notifyDataSetChanged();
 
 //        Circle wave = new Circle();
 //        progressBar.setIndeterminateDrawable(wave);

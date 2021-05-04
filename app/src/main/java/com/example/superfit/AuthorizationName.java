@@ -34,8 +34,7 @@ public class AuthorizationName extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 EditText et_username = findViewById(R.id.et_username);
-//                Intent intent = new Intent(getApplicationContext(), AuthorizationCode.class);
-                                Intent intent = new Intent(getApplicationContext(), AuthorizationCode.class);
+                Intent intent = new Intent(getApplicationContext(), AuthorizationCode.class);
                 intent.putExtra("username", et_username.getText().toString());
                 startActivity(intent);
             }
@@ -45,7 +44,7 @@ public class AuthorizationName extends AppCompatActivity {
         btn_signUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), ActivitySignUp.class);
+                Intent intent = new Intent(getApplicationContext(), RegistrationActivity.class);
                 startActivity(intent);
             }
         });

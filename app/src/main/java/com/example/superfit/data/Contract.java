@@ -1,11 +1,13 @@
 package com.example.superfit.data;
 
-import android.content.Context;
 import android.provider.BaseColumns;
 
+/**
+ * Класс-контракт для работы с БД. Предоставляет всю необходимяе данные
+ */
 public final class Contract {
     private Contract() {
-    };
+    }
 
     public static final class UserEntry implements BaseColumns{
         public final static String TABLE_NAME = "user";

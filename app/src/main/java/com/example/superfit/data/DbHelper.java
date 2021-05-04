@@ -5,16 +5,17 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+/**
+ * Класс для работы с БД
+ */
 public class DbHelper extends SQLiteOpenHelper {
 
     public static final String LOG_TAG = DbHelper.class.getSimpleName();
 
     //имя файла бд
-
     private static final String DATABASE_NAME = "superfit.db";
 
     //версия БД
-
     private static final int DATABASE_VERSION = 1;
 
     public DbHelper (Context context){
@@ -36,12 +37,12 @@ public class DbHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        // Запишем в журнал
+        // запись в журнал
         Log.w("SQLite", "Обновляемся с версии " + oldVersion + " на версию " + newVersion);
 
-        // Удаляем старую таблицу и создаём новую
+        // удаление старой таблицы и создание новой
         db.execSQL("DROP TABLE IF EXISTS " + DATABASE_NAME);
-        // Создаём новую таблицу
+        // создание новой таблицы
         onCreate(db);
     }
 }

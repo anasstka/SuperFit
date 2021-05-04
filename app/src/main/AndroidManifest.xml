@@ -11,11 +11,11 @@
         android:roundIcon="@mipmap/icon_logo_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SuperFit">
-        <activity android:name=".ActivityRecipeScroll"></activity>
+        <activity android:name=".RecipeScreenActivity"></activity>
         <activity android:name=".RecipeListActivity" />
         <activity android:name=".AuthorizationCode" />
         <activity android:name=".AuthorizationName" />
-        <activity android:name=".ActivitySignUp" />
+        <activity android:name=".RegistrationActivity" />
         <activity android:name=".SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

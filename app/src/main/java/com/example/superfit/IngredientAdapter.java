@@ -8,15 +8,17 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.List;
 
-public class AdapterIngredient extends BaseAdapter {
+/**
+ * адаптер для заполнения listview элементами класса Ingredient
+ */
+public class IngredientAdapter extends BaseAdapter {
 
     private Context context;
     private ArrayList<Ingredient> ingredients;
     LayoutInflater inflater;
 
-    public AdapterIngredient(Context context, ArrayList<Ingredient> ingredients){
+    public IngredientAdapter(Context context, ArrayList<Ingredient> ingredients){
         this.context = context;
         this.ingredients = ingredients;
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);

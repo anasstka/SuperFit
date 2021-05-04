@@ -13,7 +13,10 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-public class ActivityRecipeScroll extends AppCompatActivity {
+/**
+ * Экран рецепта
+ */
+public class RecipeScreenActivity extends AppCompatActivity {
 
     ListView lv_ingredients;
     ImageView iv_image;
@@ -26,7 +29,7 @@ public class ActivityRecipeScroll extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_recipe_scroll);
+        setContentView(R.layout.activity_recipe_screen);
 
         lv_ingredients = findViewById(R.id.lv_ingredients);
         iv_image = findViewById(R.id.im_recipe);
@@ -36,6 +39,7 @@ public class ActivityRecipeScroll extends AppCompatActivity {
         tv_fat = findViewById(R.id.tv_fat_on_scroll);
         tv_carbs = findViewById(R.id.tv_carbs_on_scroll);
 
+        // обработка нажатия по кнопке назад
         ImageView btn_back_on_scroll=findViewById(R.id.btn_back_on_scroll);
         btn_back_on_scroll.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,13 +49,13 @@ public class ActivityRecipeScroll extends AppCompatActivity {
             }
         });
 
+        // считывание передаваемой информации о выбранном рецете и заполнение экрана необходисмой информацией
         Bundle bundle = getIntent().getExtras();
-
         if (bundle != null) {
             Recipe recipe = (Recipe) bundle.getSerializable("recipe");
 
             String image = recipe.getImage();
-            Picasso.get().load(recipe.getImage()).into(iv_image);
+            Picasso.get().load(image).into(iv_image);
 
             String name = recipe.getName();
             tv_name_on_scroll.setText(String.valueOf(name));
@@ -69,11 +73,8 @@ public class ActivityRecipeScroll extends AppCompatActivity {
             tv_carbs.setText(String.valueOf(carbs));
 
             ArrayList<Ingredient> ingredients = recipe.getIngredients();
-            AdapterIngredient adapterIngredient = new AdapterIngredient(ActivityRecipeScroll.this, ingredients);
-            lv_ingredients.setAdapter(adapterIngredient);
+            IngredientAdapter ingredientAdapter = new IngredientAdapter(RecipeScreenActivity.this, ingredients);
+            lv_ingredients.setAdapter(ingredientAdapter);
         }
-
-
-
     }
 }

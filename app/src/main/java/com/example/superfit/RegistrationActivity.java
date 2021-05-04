@@ -16,8 +16,12 @@ import android.widget.Toast;
 import com.example.superfit.data.Contract;
 import com.example.superfit.data.DbHelper;
 
-public class ActivitySignUp extends AppCompatActivity {
+/**
+ * Экран регистрации
+ */
+public class RegistrationActivity extends AppCompatActivity {
 
+    // хранит текущего пользователя в системе
     SharedPreferences mSettings;
     SharedPreferences.Editor editor;
 
@@ -26,14 +30,10 @@ public class ActivitySignUp extends AppCompatActivity {
     EditText et_code;
     EditText et_repeatCode;
 
-    String name;
-    String email;
-    int code;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sign_up);
+        setContentView(R.layout.activity_registration);
 
         mSettings = getSharedPreferences(PREFERENCES.APP_PREFERENCES, Context.MODE_PRIVATE);
         editor = mSettings.edit();
@@ -43,14 +43,16 @@ public class ActivitySignUp extends AppCompatActivity {
         et_code = findViewById(R.id.et_password);
         et_repeatCode = findViewById(R.id.et_repeat_password);
 
+        // обработка нажатия по кнопке зарегистрироваться
         LinearLayout btn_signUp = findViewById(R.id.btn_sign_up);
         btn_signUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // валидация полей ввода. При успешной проверке запись данных пользователя в БД
                 if (areFieldsEmpty() && isAtEmail() && arePasswordsCompare()) {
-                    name = et_name.getText().toString().trim();
-                    email = et_email.getText().toString().trim();
-                    code = Integer.parseInt(et_code.getText().toString().trim());
+                    String name = et_name.getText().toString().trim();
+                    String email = et_email.getText().toString().trim();
+                    int code = Integer.parseInt(et_code.getText().toString().trim());
 
                     DbHelper dbHelper = new DbHelper(getApplicationContext());
 
@@ -64,7 +66,7 @@ public class ActivitySignUp extends AppCompatActivity {
                     long newRowId = db.insert(Contract.UserEntry.TABLE_NAME, null, values);
 
                     if (newRowId == -1) {
-                        // Если ID  -1, значит произошла ошибка
+                        // Если ID -1, значит произошла ошибка
                         Toast.makeText(getApplicationContext(), "Ошибка", Toast.LENGTH_SHORT).show();
                     } else {
                         editor.putString(PREFERENCES.APP_PREFERENCES_NAME, String.valueOf(name));
@@ -76,10 +78,13 @@ public class ActivitySignUp extends AppCompatActivity {
                         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                         startActivity(intent);
                     }
+                } else {
+                    Toast.makeText(getApplicationContext(), "Error! Check valid information", Toast.LENGTH_SHORT).show();
                 }
             }
         });
 
+        // обработка нажатия по кнопке войти (перемещение на предыдущий экран)
         LinearLayout btn_signIn = findViewById(R.id.btn_sign_in);
         btn_signIn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,7 +93,6 @@ public class ActivitySignUp extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
     }
 
     // проверка на пустоту полей
@@ -99,7 +103,7 @@ public class ActivitySignUp extends AppCompatActivity {
                 && !et_repeatCode.getText().toString().isEmpty();
     }
 
-    // проверка на наличие символа @
+    // проверка на наличие символа @ в поле email
     private boolean isAtEmail() {
         return et_email.getText().toString().contains("@");
     }
@@ -107,10 +111,5 @@ public class ActivitySignUp extends AppCompatActivity {
     // проверка равенства паролей
     private boolean arePasswordsCompare() {
         return et_code.getText().toString().equals(et_repeatCode.getText().toString());
-    }
-
-    // условия для пароля
-    private void passwordEntryCondition() {
-
     }
 }

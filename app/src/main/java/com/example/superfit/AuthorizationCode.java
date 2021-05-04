@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -18,9 +19,13 @@ import com.example.superfit.data.DbHelper;
 
 import java.util.Random;
 
+/**
+ * Экран ввода кода
+ */
 public class AuthorizationCode extends AppCompatActivity {
 
     private ImageView[] iv_numbers;
+    // массив картинок кнопок
     private int[] imagesNumbers = {
             R.drawable.number_1,
             R.drawable.number_2,
@@ -32,6 +37,7 @@ public class AuthorizationCode extends AppCompatActivity {
             R.drawable.number_8,
             R.drawable.number_9
     };
+    // массив значений кнопок
     private String[] valuesNumbers = {
             "1",
             "2",
@@ -44,12 +50,14 @@ public class AuthorizationCode extends AppCompatActivity {
             "9"
     };
 
+    // хранит текущего пользователя в системе
     SharedPreferences mSettings;
     SharedPreferences.Editor editor;
 
     private String code_correct = "1111";
     private String code_user = "";
 
+    // данные текущего пользователя
     private String db_username = null;
     private String db_userEmail = null;
     private double dv_userWeight = 0.0;
@@ -75,13 +83,16 @@ public class AuthorizationCode extends AppCompatActivity {
         mSettings = getSharedPreferences(PREFERENCES.APP_PREFERENCES, Context.MODE_PRIVATE);
         editor = mSettings.edit();
 
+        // получение имени пользователя, введенное на прошлом экране
         TextView tv_email = findViewById(R.id.tv_email);
         Bundle bundle = getIntent().getExtras();
         String username = bundle.getString("username").toString().trim();
         tv_email.setText(username);
 
+        // работа с БД
         DbHelper dbHelper = new DbHelper(this);
         SQLiteDatabase db = dbHelper.getReadableDatabase();
+        // список просматриваемыъ столбцов
         String [] list_column = {
                 Contract.UserEntry._ID,
                 Contract.UserEntry.COLUMN_NAME,
@@ -91,6 +102,7 @@ public class AuthorizationCode extends AppCompatActivity {
                 Contract.UserEntry.COLUMN_HEIGHT
         };
 
+        // открытие БД
         Cursor cursor = db.query(
                 Contract.UserEntry.TABLE_NAME,
                 list_column,
@@ -117,6 +129,7 @@ public class AuthorizationCode extends AppCompatActivity {
             double currentHeight = cursor.getDouble(heightColumnIndex);
             int currentCode = cursor.getInt(codeColumnIndex);
 
+            // если имя пользователя есть в системе, то продолжаем работу
             if (username.equals(currentName)) {
                 db_username = currentName;
                 db_userEmail = currentEmail;
@@ -124,11 +137,24 @@ public class AuthorizationCode extends AppCompatActivity {
                 db_userHeight = currentHeight;
 
                 code_correct = String.valueOf(currentCode);
-//                Toast.makeText(getApplicationContext(), "" + code_correct, Toast.LENGTH_SHORT).show();
+
+                break;
             }
         }
 
+        // если имени пользователя нет в БД, то возвращение на окно входа
+        if (db_username == null) {
+            Toast.makeText(getApplicationContext(), "This user does not exist", Toast.LENGTH_SHORT).show();
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    Intent intent= new Intent(getApplicationContext(), AuthorizationName.class);
+                    startActivity(intent);
+                }
+            }, 700);
+        }
 
+        // обработка нажатия по кнопке назад
         ImageView btn_back = findViewById(R.id.btn_back);
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -137,6 +163,8 @@ public class AuthorizationCode extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        shuffleButtons();
     }
 
     // метод для переставления кнопок клавиатуры в случайном порядке
@@ -159,6 +187,7 @@ public class AuthorizationCode extends AppCompatActivity {
         }
     }
 
+    // метод нажатия на кнопки кода. Обработка ввода пароля
     public void onClick(View v){
         switch (v.getId()){
             case R.id.im_1:
@@ -190,6 +219,9 @@ public class AuthorizationCode extends AppCompatActivity {
                 break;
         }
         System.out.println(code_user);
+
+        // если длина кода равна 4, проверяется его совпадение с кодом пользователя. При истинности - перемещение на главный экран,
+        // иначе - сообщение об ошибке
         if(code_user.length()==4){
             if(code_correct.equals(code_user)){
                 editor.putString(PREFERENCES.APP_PREFERENCES_NAME, String.valueOf(db_username));
@@ -198,12 +230,12 @@ public class AuthorizationCode extends AppCompatActivity {
                 editor.putString(PREFERENCES.APP_PREFERENCES_HEIGHT, String.valueOf(db_userHeight));
                 editor.apply();
 
-                Toast.makeText(getApplicationContext(), "Добро пожаловать", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Welcome", Toast.LENGTH_SHORT).show();
                 Intent intent= new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent);
             }
             else {
-                Toast.makeText(getApplicationContext(), "Неверный пароль", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Invalid password", Toast.LENGTH_SHORT).show();
                 code_user="";
             }
         }

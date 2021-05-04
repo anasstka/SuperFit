@@ -24,7 +24,10 @@ import java.util.ArrayList;
 
 import static android.os.FileUtils.copy;
 
-public class AdapterRecipe extends BaseAdapter {
+/**
+ * адаптер для заполнения listview элементами класса Recipe
+ */
+public class RecipeAdapter extends BaseAdapter {
 
     Context ctx;
     LayoutInflater inflater;
@@ -32,7 +35,7 @@ public class AdapterRecipe extends BaseAdapter {
 
     ArrayList<Recipe> listFull;
 
-    public AdapterRecipe(Context context, ArrayList<Recipe> recipes) {
+    public RecipeAdapter(Context context, ArrayList<Recipe> recipes) {
         this.ctx = context;
         this.recipes = recipes;
         this.listFull=recipes;
