@@ -1,7 +1,8 @@
 package com.example.superfit;
 
-import android.content.SharedPreferences;
-
+/**
+ * Класс для констант SharedPreferences
+ */
 public final class PREFERENCES {
     public static final String APP_PREFERENCES = "mysettings";
 

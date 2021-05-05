@@ -10,8 +10,12 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+/**
+ * Главный экран
+ */
 public class MainActivity extends AppCompatActivity {
 
+    // хранит текущего пользователя в системе
     SharedPreferences mSettings;
     SharedPreferences.Editor editor;
 
@@ -32,11 +36,13 @@ public class MainActivity extends AppCompatActivity {
         mSettings = getSharedPreferences(PREFERENCES.APP_PREFERENCES, Context.MODE_PRIVATE);
         editor = mSettings.edit();
 
+        // получение роста и веса текущего пользователя
         if(mSettings.contains(PREFERENCES.APP_PREFERENCES_NAME)) {
             weight = Double.parseDouble(mSettings.getString(PREFERENCES.APP_PREFERENCES_WEIGHT, "0"));
             height = Double.parseDouble(mSettings.getString(PREFERENCES.APP_PREFERENCES_HEIGHT, "0"));
         }
 
+        // при нулевых значениях веса и роста задается значение "Undefined"
         if (weight == 0) {
             tv_weight.setText("Undefined");
         } else {
@@ -48,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
             tv_height.setText(weight + " cm");
         }
 
+        // обработка нажатия по кнопке выйти
         LinearLayout btn_sign_out = findViewById(R.id.btn_sign_out);
         btn_sign_out.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        // обработка нажатия по кнопке рецепты
         LinearLayout btn_recipes = findViewById(R.id.recipes);
         btn_recipes.setOnClickListener(new View.OnClickListener() {
             @Override

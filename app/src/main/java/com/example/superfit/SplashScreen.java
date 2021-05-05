@@ -10,6 +10,9 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
+/**
+ * Экран загрузки
+ */
 public class SplashScreen extends AppCompatActivity {
 
     @Override

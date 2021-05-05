@@ -23,6 +23,7 @@ public class IngredientAdapter extends BaseAdapter {
         this.ingredients = ingredients;
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
+
     @Override
     public int getCount() {
         return ingredients.size();
@@ -38,6 +39,7 @@ public class IngredientAdapter extends BaseAdapter {
         return position;
     }
 
+    //метод, в котором устанавливается отображение элемента списка
     @Override
     public View getView(int position, View view, ViewGroup parent) {
         if (view == null) {

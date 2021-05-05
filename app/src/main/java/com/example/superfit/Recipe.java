@@ -1,9 +1,11 @@
 package com.example.superfit;
 
 import java.io.Serializable;
-import java.net.URL;
 import java.util.ArrayList;
 
+/**
+ * Класс, хранящий информацию о рецептах
+ */
 public class Recipe implements Serializable {
 
     private String name;

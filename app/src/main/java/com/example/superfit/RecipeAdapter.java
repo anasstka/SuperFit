@@ -57,6 +57,7 @@ public class RecipeAdapter extends BaseAdapter {
         return position;
     }
 
+    //метод, в котором устанавливается отображение элемента списка
     @Override
     public View getView(int position, View view, ViewGroup parent) {
         if (view == null) {
@@ -66,8 +67,11 @@ public class RecipeAdapter extends BaseAdapter {
         Recipe currentRecipe = getItem(position);
 
         ((TextView) view.findViewById(R.id.tv_name_dish)).setText(currentRecipe.getName());
+
+        // получение картинки по ссылке и добавление ее в ImageView
         ImageView iv_recipe = (ImageView) view.findViewById(R.id.iv_recipe);
         Picasso.get().load(currentRecipe.getImage()).into(iv_recipe);
+
         ((TextView) view.findViewById(R.id.tv_kcal)).setText(String.valueOf(currentRecipe.getKcal()));
         ((TextView) view.findViewById(R.id.tv_protein)).setText(String.valueOf(currentRecipe.getProtein()));
         ((TextView) view.findViewById(R.id.tv_fat)).setText(String.valueOf(currentRecipe.getFat()));

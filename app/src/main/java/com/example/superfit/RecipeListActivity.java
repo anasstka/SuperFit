@@ -32,12 +32,16 @@ import java.util.ArrayList;
 
 import javax.net.ssl.HttpsURLConnection;
 
+/**
+ * Экран рецептов
+ */
 public class RecipeListActivity extends AppCompatActivity {
 
     // константы: id и key для API
     private static final String APP_ID = "b0e23358";
     private static final String APP_KEY = "33972e22ce0dd8f06384d71f8bd3a3f2";
 
+    // переменные для фильтрации API
     private static String DIET = "balanced";
     private static String SEARCH = "";
 
@@ -46,6 +50,7 @@ public class RecipeListActivity extends AppCompatActivity {
     private RecipeAdapter recipeAdapter;
     private SearchView searchView;
 
+    // Элемент для загрузочного кружка во время парсинга рецептов
     ProgressBar progressBar;
 
     @Override
@@ -55,6 +60,8 @@ public class RecipeListActivity extends AppCompatActivity {
 
         progressBar = (ProgressBar) findViewById(R.id.spin_kit);
 
+        // методы для парсинга после изменения текста в строке поиска. Повторный парсинг начинается
+        // спустя 4 сек после введенного/удаленного символа
         searchView = findViewById(R.id.et_search);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -91,6 +98,7 @@ public class RecipeListActivity extends AppCompatActivity {
 //        progressBar.setIndeterminateDrawable(wave);
 //        progressBar.setVisibility(View.VISIBLE);
 
+        // обработка нажатия по элементу listview, переход на индивидуальную карточку рецепта
         lv_recipes = findViewById(R.id.lv_recipes);
         lv_recipes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -103,18 +111,18 @@ public class RecipeListActivity extends AppCompatActivity {
 
         recipeArrayList = new ArrayList<>();
 
-        searchView = findViewById(R.id.et_search);
-
         System.out.println("!");
         Async();
 
     }
 
     private void Async(){
+        // появление значка загрузки на экране
         Circle wave = new Circle();
         progressBar.setIndeterminateDrawable(wave);
         progressBar.setVisibility(View.VISIBLE);
 
+        // отправка запроса и парсинг во втором потоке
         AsyncTask.execute(new Runnable() {
             @Override
             public void run() {
@@ -124,12 +132,14 @@ public class RecipeListActivity extends AppCompatActivity {
                     //URL url = new URL("https://api.edamam.com/search?q=chicken&app_id=4da5a427&app_key=6dd6f99730da1737e964379d886e607d&diet=high-protein");
                     URL url = new URL("https://api.edamam.com/search?q=" + SEARCH + "&app_id=" + APP_ID + "&app_key=" + APP_KEY + "&diet=" + DIET);
 
+                    // создание соединения
                     connection = (HttpURLConnection) url.openConnection();
                     connection.setRequestMethod("GET");
                     connection.connect();
 
-                    System.out.println("#            ");
+                    System.out.println("#");
 
+                    // если соединение успешно - начало парсинга
                     if (HttpsURLConnection.HTTP_OK == connection.getResponseCode()) {
                         InputStreamReader isr = new InputStreamReader(connection.getInputStream());
                         System.out.println("code 200");
@@ -137,6 +147,7 @@ public class RecipeListActivity extends AppCompatActivity {
                         parser(isr);
 
                         isr.close();
+                        // заполнение listview в основном потоке
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
@@ -174,7 +185,7 @@ public class RecipeListActivity extends AppCompatActivity {
             }
         });
     }
-
+    // метод для парсинга json файла
     private void parser(InputStreamReader file)  {
         try {
             Object object = new JSONParser().parse(file);
@@ -185,6 +196,7 @@ public class RecipeListActivity extends AppCompatActivity {
             for (Object obj : hits) {
                 JSONObject jsonObject = (JSONObject) obj;
 
+                // получение необходимой информации из файла json
                 JSONObject recipe = (JSONObject) jsonObject.get("recipe");
                 String name = recipe.get("label").toString();
                 String image = recipe.get("image").toString();
@@ -228,6 +240,7 @@ public class RecipeListActivity extends AppCompatActivity {
         }
     }
 
+    // обработка нажатия по кнопкам смены диеты
     public void changeDiet(View v) {
         recipeArrayList.clear();
         recipeAdapter.notifyDataSetChanged();

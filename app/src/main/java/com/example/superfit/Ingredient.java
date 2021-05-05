@@ -2,6 +2,9 @@ package com.example.superfit;
 
 import java.io.Serializable;
 
+/**
+ * Класс, хранящий информацию об ингредиентах
+ */
 public class Ingredient implements Serializable {
 
     private String ingredient;
