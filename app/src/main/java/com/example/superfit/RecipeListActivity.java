@@ -2,16 +2,22 @@ package com.example.superfit;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.ContextThemeWrapper;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,6 +43,9 @@ import javax.net.ssl.HttpsURLConnection;
  */
 public class RecipeListActivity extends AppCompatActivity {
 
+    // объект для создания диалогового окна
+    Dialog dialog;
+
     // константы: id и key для API
     private static final String APP_ID = "b0e23358";
     private static final String APP_KEY = "33972e22ce0dd8f06384d71f8bd3a3f2";
@@ -57,6 +66,8 @@ public class RecipeListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_list);
+
+        dialog = new Dialog(this);
 
         progressBar = (ProgressBar) findViewById(R.id.spin_kit);
 
@@ -157,21 +168,14 @@ public class RecipeListActivity extends AppCompatActivity {
                             }
                         });
                     }
-//                    else {
-//                        runOnUiThread(new Runnable() {
-//                            @Override
-//                            public void run() {
-//                                adapterRecipe = new AdapterRecipe(RecipeListActivity.this, recipeArrayList);
-//                                lv_recipes.setAdapter(adapterRecipe);
-//                            }
-//                        });
-//                        System.out.println("else");
-//                        TextView tv_error = findViewById(R.id.tv_error);
-//                        tv_error.setVisibility(View.VISIBLE);
-//                        tv_error.setText("Нет рецептов в категории: " + DIET);
-////                        Toast.makeText(getApplicationContext(), "Добро пожаловать", Toast.LENGTH_SHORT).show();
-////                        Toast.makeText(RecipeListActivity.this, "Нет рецептов в категории: " + DIET, Toast.LENGTH_LONG).show();
-//                    }
+                    else {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                openDialog();
+                            }
+                        });
+                    }
 
                 } catch (MalformedURLException e) {
                     e.printStackTrace();
@@ -293,5 +297,25 @@ public class RecipeListActivity extends AppCompatActivity {
                 break;
         }
         Async();
+    }
+
+    private void openDialog() {
+        dialog.setContentView(R.layout.layout_dialog);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        RelativeLayout btn1 = dialog.findViewById(R.id.dialog_btn1);
+        RelativeLayout btn2 = dialog.findViewById(R.id.dialog_btn2);
+
+        View.OnClickListener onClick = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        };
+
+        btn1.setOnClickListener(onClick);
+        btn2.setOnClickListener(onClick);
+
+        dialog.show();
     }
 }
