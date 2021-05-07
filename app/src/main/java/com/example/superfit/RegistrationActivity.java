@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -49,7 +50,7 @@ public class RegistrationActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // валидация полей ввода. При успешной проверке запись данных пользователя в БД
-                if (areFieldsEmpty() && isAtEmail() && arePasswordsCompare()) {
+                if (validatePassword() & validateEmail() & validateUserName()) {
                     String name = et_name.getText().toString().trim();
                     String email = et_email.getText().toString().trim();
                     int code = Integer.parseInt(et_code.getText().toString().trim());
@@ -57,7 +58,7 @@ public class RegistrationActivity extends AppCompatActivity {
                     DbHelper dbHelper = new DbHelper(getApplicationContext());
 
                     SQLiteDatabase db = dbHelper.getWritableDatabase();
-                    ContentValues values= new ContentValues();
+                    ContentValues values = new ContentValues();
 
                     values.put(Contract.UserEntry.COLUMN_NAME, name);
                     values.put(Contract.UserEntry.COLUMN_EMAIL, email);
@@ -75,11 +76,10 @@ public class RegistrationActivity extends AppCompatActivity {
                         editor.putString(PREFERENCES.APP_PREFERENCES_HEIGHT, String.valueOf(0));
                         editor.apply();
 
+                        Toast.makeText(getApplicationContext(), "Welcome", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                         startActivity(intent);
                     }
-                } else {
-                    Toast.makeText(getApplicationContext(), "Error! Check valid information", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -95,21 +95,57 @@ public class RegistrationActivity extends AppCompatActivity {
         });
     }
 
-    // проверка на пустоту полей
-    private boolean areFieldsEmpty() {
-        return !et_name.getText().toString().isEmpty()
-                && !et_email.getText().toString().isEmpty()
-                && !et_code.getText().toString().isEmpty()
-                && !et_repeatCode.getText().toString().isEmpty();
+    // валидация поля username
+    private boolean validateUserName() {
+        String name = et_name.getText().toString();
+        if (name.isEmpty()) {
+            et_name.setError("Field can't be empty");
+            et_name.requestFocus();
+            return false;
+        } else {
+            et_name.setError(null);
+            return true;
+        }
     }
 
-    // проверка на наличие символа @ в поле email
-    private boolean isAtEmail() {
-        return et_email.getText().toString().contains("@");
+    // валидация поля email
+    private boolean validateEmail() {
+        String email = et_email.getText().toString();
+        if (email.isEmpty()) {
+            et_email.setError("Field can't be empty");
+            et_email.requestFocus();
+            return false;
+        } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            et_email.setError("Please enter a valid email address");
+            et_email.requestFocus();
+            return false;
+        } else {
+            et_email.setError(null);
+            return true;
+        }
+
     }
 
-    // проверка равенства паролей
-    private boolean arePasswordsCompare() {
-        return et_code.getText().toString().equals(et_repeatCode.getText().toString());
+    // валидация поля password
+    private boolean validatePassword() {
+        String code = et_code.getText().toString();
+        String repeatCode = et_repeatCode.getText().toString();
+
+        if (code.length() < 4) {
+            et_code.setError("The password must be 4 characters");
+            et_code.requestFocus();
+            return false;
+        } else if (!code.equals(repeatCode)) {
+            et_code.setError("Passwords do not match");
+            et_code.requestFocus();
+            et_repeatCode.setError("Passwords do not match");
+            et_code.setText("");
+            et_repeatCode.setText("");
+            return false;
+        } else {
+            et_code.setError(null);
+            et_repeatCode.setError(null);
+            return true;
+        }
     }
 }

@@ -303,18 +303,21 @@ public class RecipeListActivity extends AppCompatActivity {
         dialog.setContentView(R.layout.layout_dialog);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
-        RelativeLayout btn1 = dialog.findViewById(R.id.dialog_btn1);
-        RelativeLayout btn2 = dialog.findViewById(R.id.dialog_btn2);
+        RelativeLayout btnOK = dialog.findViewById(R.id.dialog_btn_ok);
+//        RelativeLayout btn2 = dialog.findViewById(R.id.dialog_btn2);
 
         View.OnClickListener onClick = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
+                finish();
             }
         };
 
-        btn1.setOnClickListener(onClick);
-        btn2.setOnClickListener(onClick);
+        btnOK.setOnClickListener(onClick);
+//        btn2.setOnClickListener(onClick);
 
         dialog.show();
     }

@@ -36,7 +36,7 @@
             android:textSize="16sp" />
 
         <RelativeLayout
-            android:id="@+id/dialog_btn1"
+            android:id="@+id/dialog_btn_ok"
             android:layout_width="74dp"
             android:layout_height="36dp"
             android:layout_alignParentEnd="true"
@@ -49,30 +49,30 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:fontFamily="@font/montserrat_medium"
-                android:text="BUTTON"
+                android:text="OK"
                 android:textColor="#B461F5"
                 android:textSize="14sp" />
         </RelativeLayout>
 
-        <RelativeLayout
-            android:id="@+id/dialog_btn2"
-            android:layout_width="74dp"
-            android:layout_height="36dp"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginTop="34dp"
-            android:layout_marginRight="82dp">
+<!--        <RelativeLayout-->
+<!--            android:id="@+id/dialog_btn2"-->
+<!--            android:layout_width="74dp"-->
+<!--            android:layout_height="36dp"-->
+<!--            android:layout_alignParentEnd="true"-->
+<!--            android:layout_alignParentRight="true"-->
+<!--            android:layout_alignParentBottom="true"-->
+<!--            android:layout_marginTop="34dp"-->
+<!--            android:layout_marginRight="82dp">-->
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:fontFamily="@font/montserrat_medium"
-                android:text="BUTTON"
-                android:textColor="#B461F5"
-                android:textSize="14sp" />
-        </RelativeLayout>
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_centerInParent="true"-->
+<!--                android:fontFamily="@font/montserrat_medium"-->
+<!--                android:text="BUTTON"-->
+<!--                android:textColor="#B461F5"-->
+<!--                android:textSize="14sp" />-->
+<!--        </RelativeLayout>-->
 
     </RelativeLayout>
 </RelativeLayout>
