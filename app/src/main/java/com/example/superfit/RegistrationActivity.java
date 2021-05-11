@@ -68,7 +68,7 @@ public class RegistrationActivity extends AppCompatActivity {
 
                     if (newRowId == -1) {
                         // Если ID -1, значит произошла ошибка
-                        Toast.makeText(getApplicationContext(), "Ошибка", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_SHORT).show();
                     } else {
                         editor.putString(PREFERENCES.APP_PREFERENCES_NAME, String.valueOf(name));
                         editor.putString(PREFERENCES.APP_PREFERENCES_EMAIL, String.valueOf(email));
@@ -123,7 +123,6 @@ public class RegistrationActivity extends AppCompatActivity {
             et_email.setError(null);
             return true;
         }
-
     }
 
     // валидация поля password

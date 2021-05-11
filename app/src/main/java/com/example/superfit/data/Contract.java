@@ -3,7 +3,7 @@ package com.example.superfit.data;
 import android.provider.BaseColumns;
 
 /**
- * Класс-контракт для работы с БД. Предоставляет всю необходимяе данные
+ * Класс-контракт для работы с БД. Предоставляет всю необходимые данные
  */
 public final class Contract {
     private Contract() {
