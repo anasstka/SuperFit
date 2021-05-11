@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 /**
  * Экран входа
@@ -40,6 +41,10 @@ public class AuthorizationName extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 EditText et_username = findViewById(R.id.et_username);
+                if (et_username.getText().toString().isEmpty()) {
+                    Toast.makeText(getApplicationContext(), "Empty field!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 Intent intent = new Intent(getApplicationContext(), AuthorizationCode.class);
                 intent.putExtra("username", et_username.getText().toString());
                 startActivity(intent);
