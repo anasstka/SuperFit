@@ -249,10 +249,6 @@ public class RecipeListActivity extends AppCompatActivity {
         recipeArrayList.clear();
         recipeAdapter.notifyDataSetChanged();
 
-//        Circle wave = new Circle();
-//        progressBar.setIndeterminateDrawable(wave);
-//        progressBar.setVisibility(View.VISIBLE);
-
         LinearLayout diet_balanced = findViewById(R.id.diet_balanced);
         TextView txt_balanced = findViewById(R.id.btn_balanced);
         LinearLayout diet_high_fiber = findViewById(R.id.diet_high_fiber);

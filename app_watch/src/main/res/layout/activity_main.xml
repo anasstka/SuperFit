@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000"
+    android:padding="@dimen/box_inset_layout_padding"
+    tools:context=".MainActivity"
+    tools:deviceIds="wear">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:text="Plank"
+        android:fontFamily="@font/montserrat_bold"
+        android:textColor="#fff"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dp"
+        android:textSize="20dp"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/circle"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="20dp"/>
+
+    <Chronometer
+        android:id="@+id/chronometer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="46dp"
+        android:layout_marginTop="70dp"
+        android:textSize="33dp"
+        android:fontFamily="@font/montserrat_bold"
+        android:textColor="#fff"
+        android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/btn_start"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="45dp"
+        android:layout_marginTop="70dp"
+        android:fontFamily="@font/montserrat_bold"
+        android:text="Start"
+        android:textColor="#fff"
+        android:textSize="38dp" />
+
+    <TextView
+        android:id="@+id/btn_excellent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="33dp"
+        android:layout_marginTop="85dp"
+        android:fontFamily="@font/montserrat_bold"
+        android:text="Excellent!"
+        android:textColor="#fff"
+        android:textSize="23dp"
+        android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/btn_prepare"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="37dp"
+        android:layout_marginTop="83dp"
+        android:fontFamily="@font/montserrat_bold"
+        android:text="Prepare!"
+        android:textColor="#fff"
+        android:textSize="25dp"
+        android:visibility="gone"/>
+
+    <ImageView
+        android:id="@+id/btn_exit"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="14dp"
+        android:src="@drawable/exit"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/btn_stop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tap for stop"
+        android:fontFamily="@font/montserrat_bold"
+        android:textSize="14dp"
+        android:layout_below="@id/chronometer"
+        android:layout_centerInParent="true"
+        android:visibility="gone"
+        android:textColor="#FFFFFF" />
+
+
+</RelativeLayout>

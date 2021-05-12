@@ -79,36 +79,4 @@ public class RecipeAdapter extends BaseAdapter {
 
         return view;
     }
-
-//    public Filter getFilter() {
-//        return exampleFilter;
-//    }
-//
-//    private Filter exampleFilter = new Filter() {
-//        @Override
-//        protected FilterResults performFiltering(CharSequence constraint) {
-//           ArrayList<Recipe> filterList = new ArrayList<>();
-//           if(ctx==null|| constraint.length()==0){
-//               filterList.addAll(listFull);
-//           }
-//           else {
-//               String filterPattern = constraint.toString().toLowerCase().trim();
-//               for (Recipe item: listFull){
-//                   if(item.getName().toLowerCase().contains(filterPattern)){
-//                       filterList.add(item);
-//                   }
-//               }
-//           }
-//           FilterResults results = new FilterResults();
-//           results.values=filterList;
-//            return results;
-//        }
-//
-//        @Override
-//        protected void publishResults(CharSequence constraint, FilterResults results) {
-//            recipes.clear();
-//            recipes.addAll((ArrayList<Recipe>)results.values);
-//            notifyDataSetChanged();
-//        }
-//    };
 }

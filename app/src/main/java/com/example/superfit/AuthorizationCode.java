@@ -167,7 +167,7 @@ public class AuthorizationCode extends AppCompatActivity {
         shuffleButtons();
     }
 
-    // метод для переставления кнопок клавиатуры в случайном порядке
+    // метод для перестановки кнопок клавиатуры в случайном порядке
     private void shuffleButtons() {
         Random rnd = new Random();
         for (int i = iv_numbers.length - 1; i >= 1; i--) {
