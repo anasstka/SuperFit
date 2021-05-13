@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="286dp"
+        android:layout_height="172dp"
+        android:layout_centerInParent="true"
+        android:background="#424242"
+        android:paddingLeft="24dp"
+        android:paddingTop="11.9dp"
+        android:paddingRight="24dp"
+        android:paddingBottom="11.4dp">
+
+        <TextView
+            android:id="@+id/dialog_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat_medium"
+            android:text="Change your weight"
+            android:textColor="#fff"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/_weight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Weight"
+            android:textColor="#B461F5"
+            android:textSize="12dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="39.8dp"
+            />
+
+        <RelativeLayout
+            android:id="@+id/dialog_btn_change"
+            android:layout_width="74dp"
+            android:layout_height="36dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="34dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:fontFamily="@font/montserrat_medium"
+                android:text="Change"
+                android:textAllCaps="true"
+                android:textColor="#B461F5"
+                android:textSize="14sp" />
+        </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/dialog_btn_cancel"
+                    android:layout_width="74dp"
+                    android:layout_height="36dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginTop="34dp"
+                    android:layout_marginRight="82dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:fontFamily="@font/montserrat_medium"
+                        android:text="cancel"
+                        android:textAllCaps="true"
+                        android:textColor="#B461F5"
+                        android:textSize="14sp" />
+                </RelativeLayout>
+
+        <EditText
+            android:id="@+id/et_weight"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:layout_below="@id/_weight"
+            android:hint="New value"
+            android:fontFamily="@font/montserrat_regular"
+            android:textSize="16sp"
+            android:textColor="#fff"
+            android:textColorHint="#F2F2F2"
+            android:inputType="numberDecimal"
+            android:paddingLeft="16dp"
+            android:backgroundTint="#BB6BD9" />
+    </RelativeLayout>
+</RelativeLayout>

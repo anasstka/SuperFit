@@ -52,7 +52,7 @@
         android:textSize="14dp" />
 
     <ImageView
-        android:id="@+id/btn_back_on_scroll"
+        android:id="@+id/btn_back_on_ex"
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:layout_marginStart="18dp"

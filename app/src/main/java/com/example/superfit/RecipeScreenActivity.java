@@ -40,7 +40,7 @@ public class RecipeScreenActivity extends AppCompatActivity {
         tv_carbs = findViewById(R.id.tv_carbs_on_scroll);
 
         // обработка нажатия по кнопке назад
-        ImageView btn_back_on_scroll=findViewById(R.id.btn_back_on_scroll);
+        ImageView btn_back_on_scroll=findViewById(R.id.btn_back_on_ex);
         btn_back_on_scroll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -11,7 +11,9 @@
         android:roundIcon="@mipmap/icon_logo_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SuperFit">
-        <activity android:name=".RecipeScreenActivity"></activity>
+        <activity android:name=".MyBodyActivity"></activity>
+        <activity android:name=".ExercisesActivity" />
+        <activity android:name=".RecipeScreenActivity" />
         <activity android:name=".RecipeListActivity" />
         <activity android:name=".AuthorizationCode" />
         <activity android:name=".AuthorizationName" />

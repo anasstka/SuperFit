@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="match_parent"
@@ -196,10 +195,10 @@
             android:textSize="24dp" />
 
         <TextView
-            android:id="@+id/textView3"
-            android:layout_width="match_parent"
+            android:id="@+id/btn_see_all"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="false"
+            android:layout_alignParentRight="true"
             android:layout_centerHorizontal="false"
             android:layout_centerVertical="true"
             android:fontFamily="@font/montserrat_regular"
@@ -264,6 +263,7 @@
                     android:layout_marginEnd="16dp"
                     android:layout_marginRight="16dp"
                     android:fontFamily="@font/montserrat_regular"
+                    android:textSize="12dp"
                     android:text="Push-ups exercise the pectoral muscles, triceps, and anterior deltoids."
                     android:textColor="#C6C6C6" />
             </RelativeLayout>
@@ -326,6 +326,7 @@
                     android:layout_marginEnd="16dp"
                     android:layout_marginRight="16dp"
                     android:fontFamily="@font/montserrat_regular"
+                    android:textSize="12dp"
                     android:text="The plank strengthens the abdominals, back and shoulders. "
                     android:textColor="#C6C6C6" />
             </RelativeLayout>

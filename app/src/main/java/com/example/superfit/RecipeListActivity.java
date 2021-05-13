@@ -14,6 +14,7 @@ import android.os.Handler;
 import android.view.ContextThemeWrapper;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -116,6 +117,15 @@ public class RecipeListActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(getApplicationContext(), RecipeScreenActivity.class);
                 intent.putExtra("recipe", recipeArrayList.get(position));
+                startActivity(intent);
+            }
+        });
+
+        ImageView btn_back_recipe = findViewById(R.id.btn_back_recipe);
+        btn_back_recipe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent);
             }
         });
@@ -300,7 +310,6 @@ public class RecipeListActivity extends AppCompatActivity {
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
         RelativeLayout btnOK = dialog.findViewById(R.id.dialog_btn_ok);
-//        RelativeLayout btn2 = dialog.findViewById(R.id.dialog_btn2);
 
         View.OnClickListener onClick = new View.OnClickListener() {
             @Override

@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
         if (height == 0) {
             tv_height.setText("Undefined");
         } else {
-            tv_height.setText(weight + " cm");
+            tv_height.setText(height + " cm");
         }
 
         // обработка нажатия по кнопке выйти
@@ -75,6 +75,26 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), RecipeListActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        // обработка нажатия по кнопке See All
+        TextView btn_seeAll = findViewById(R.id.btn_see_all);
+        btn_seeAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), ExercisesActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        // обработка нажатия по кнопке детали
+        LinearLayout btn_details = findViewById(R.id.btn_details);
+        btn_details.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), MyBodyActivity.class);
                 startActivity(intent);
             }
         });
