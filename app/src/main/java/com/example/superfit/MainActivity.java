@@ -30,6 +30,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        System.out.println("hi");
+
         tv_weight = findViewById(R.id.tv_weight);
         tv_height = findViewById(R.id.tv_height);
 

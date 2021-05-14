@@ -322,7 +322,6 @@ public class RecipeListActivity extends AppCompatActivity {
         };
 
         btnOK.setOnClickListener(onClick);
-//        btn2.setOnClickListener(onClick);
 
         dialog.show();
     }

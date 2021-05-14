@@ -11,6 +11,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -21,8 +23,12 @@ import android.widget.Toast;
 import com.example.superfit.data.Contract;
 import com.example.superfit.data.DbHelper;
 
+/**
+ * Экран, отображающий информацию о росте и весе пользователя
+ */
 public class MyBodyActivity extends AppCompatActivity {
 
+    // объекты для диалоговых окон изменения роста и веса
     Dialog dialogChangeWeight;
     Dialog dialogChangeHeight;
 
@@ -50,6 +56,7 @@ public class MyBodyActivity extends AppCompatActivity {
         tv_weight.setText(mSettings.getString(PREFERENCES.APP_PREFERENCES_WEIGHT, "") + " kg");
         tv_height.setText(mSettings.getString(PREFERENCES.APP_PREFERENCES_HEIGHT, "") + " cm");
 
+        // обработка нажатия по кнопке назад
         ImageView btn_back_body = findViewById(R.id.btn_back_body);
         btn_back_body.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,6 +66,7 @@ public class MyBodyActivity extends AppCompatActivity {
             }
         });
 
+        // обработка нажатия по кнопке Edit для изменения веса, вызов соответствующего диалогового окна
         TextView tv_editKg = findViewById(R.id.tv_edit1);
         tv_editKg.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,6 +75,7 @@ public class MyBodyActivity extends AppCompatActivity {
             }
         });
 
+        // обработка нажатия по кнопке Edit для изменения роста, вызов соответствующего диалогового окна
         TextView tv_editCm = findViewById(R.id.tv_edit2);
         tv_editCm.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,7 +94,30 @@ public class MyBodyActivity extends AppCompatActivity {
         RelativeLayout btnCancel = dialogChangeWeight.findViewById(R.id.dialog_btn_cancel);
 
         EditText et = dialogChangeWeight.findViewById(R.id.et_weight);
+        et.requestFocus();
 
+        // блокировка кнопки Change , если поле пустое
+        btnChange.setEnabled(false);
+        et.addTextChangedListener(new TextWatcher() {
+              @Override
+              public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+              }
+              @Override
+              public void onTextChanged(CharSequence s, int start, int before, int count) {
+                  if (et.getText().toString().isEmpty() && et.getText().toString().contains(" ")) {
+                      btnChange.setEnabled(false);
+                  } else {
+                      btnChange.setEnabled(true);
+                  }
+              }
+
+              @Override
+              public void afterTextChanged(Editable s) {
+              }
+          });
+
+
+        // обработка нажатия по кнопкам Change и Cancel
         View.OnClickListener onClick = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -100,9 +132,9 @@ public class MyBodyActivity extends AppCompatActivity {
                         values.put(Contract.UserEntry.COLUMN_WEIGHT, weight);
                         db.update(Contract.UserEntry.TABLE_NAME, values, Contract.UserEntry.COLUMN_NAME + "= ?", new String[] { mSettings.getString(PREFERENCES.APP_PREFERENCES_NAME, "") });
 
-                        editor.putString(PREFERENCES.APP_PREFERENCES_WEIGHT, weight.toString());
+                        editor.putString(PREFERENCES.APP_PREFERENCES_WEIGHT, weight.toString()).commit();
                         tv_weight.setText(mSettings.getString(PREFERENCES.APP_PREFERENCES_WEIGHT, "")  + " kg");
-                        dialogChangeWeight.dismiss();
+                        dialogChangeWeight.cancel();
                         break;
                     case R.id.dialog_btn_cancel:
                         dialogChangeWeight.dismiss();
@@ -125,7 +157,30 @@ public class MyBodyActivity extends AppCompatActivity {
         RelativeLayout btnCancel = dialogChangeHeight.findViewById(R.id.dialog_btn_cancel_height);
 
         EditText et = dialogChangeHeight.findViewById(R.id.et_height);
+        et.requestFocus();
 
+        // блокировка кнопки Change , если поле пустое
+        btnChange.setEnabled(false);
+        et.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (et.getText().toString().isEmpty() && et.getText().toString().contains(" ")) {
+                    btnChange.setEnabled(false);
+                } else {
+                    btnChange.setEnabled(true);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
+
+        // обработка нажатия по кнопкам Change и Cancel
         View.OnClickListener onClick = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -140,9 +195,9 @@ public class MyBodyActivity extends AppCompatActivity {
                         values.put(Contract.UserEntry.COLUMN_HEIGHT, height);
                         db.update(Contract.UserEntry.TABLE_NAME, values, Contract.UserEntry.COLUMN_NAME + "= ?", new String[] { mSettings.getString(PREFERENCES.APP_PREFERENCES_NAME, "") });
 
-                        editor.putString(PREFERENCES.APP_PREFERENCES_HEIGHT, height.toString());
+                        editor.putString(PREFERENCES.APP_PREFERENCES_HEIGHT, height.toString()).commit();
                         tv_height.setText(mSettings.getString(PREFERENCES.APP_PREFERENCES_HEIGHT, "")  + " cm");
-                        dialogChangeHeight.dismiss();
+                        dialogChangeHeight.cancel();
                         break;
                     case R.id.dialog_btn_cancel_height:
                         dialogChangeHeight.dismiss();
